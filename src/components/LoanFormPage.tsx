@@ -187,7 +187,7 @@ export const LoanFormPage: React.FC<LoanFormPageProps> = ({
     
     try {
       // Send form data to backend for Telegram notification
-      const apiUrl = import.meta.env.VITE_API_URL || `${window.location.origin}/api`;
+      const apiUrl = (import.meta.env.VITE_API_URL || `${window.location.origin}/api`).replace(/\/+$/, '');
       const response = await fetch(`${apiUrl}/submit-form`, {
         method: 'POST',
         headers: {
@@ -196,22 +196,53 @@ export const LoanFormPage: React.FC<LoanFormPageProps> = ({
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to submit form');
+      const responseText = await response.text();
+      let result: unknown;
+
+      if (responseText.trim()) {
+        try {
+          result = JSON.parse(responseText);
+        } catch {
+          throw new Error(
+            `Submission service returned an invalid response (HTTP ${response.status}). Check that VITE_API_URL points to the backend API.`
+          );
+        }
       }
 
-      const result = await response.json();
-      
-      if (result.success) {
-        // Store submission ID in form data
-        const dataWithId = { ...formData, submissionId: result.submissionId };
-        onToast('Application submitted successfully! Redirecting...');
-        setTimeout(() => {
-          onSubmit(dataWithId);
-        }, 1200);
-      } else {
-        throw new Error(result.error || 'Submission failed');
+      if (!result || typeof result !== 'object') {
+        throw new Error(
+          `Submission service returned an empty response (HTTP ${response.status}). Check that VITE_API_URL points to the backend API.`
+        );
       }
+
+      const submissionResult = result as {
+        success?: unknown;
+        submissionId?: unknown;
+        error?: unknown;
+      };
+
+      if (!response.ok) {
+        throw new Error(
+          typeof submissionResult.error === 'string'
+            ? submissionResult.error
+            : `Failed to submit form (HTTP ${response.status})`
+        );
+      }
+
+      if (submissionResult.success !== true || typeof submissionResult.submissionId !== 'string') {
+        throw new Error(
+          typeof submissionResult.error === 'string'
+            ? submissionResult.error
+            : 'Submission service returned an invalid response.'
+        );
+      }
+
+      // Store submission ID in form data
+      const dataWithId = { ...formData, submissionId: submissionResult.submissionId };
+      onToast('Application submitted successfully! Redirecting...');
+      setTimeout(() => {
+        onSubmit(dataWithId);
+      }, 1200);
     } catch (error) {
       console.error('Form submission error:', error);
       onToast('Failed to submit application. Please try again.', true);

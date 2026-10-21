@@ -21,6 +21,11 @@ PORT=3000
 APP_URL=https://your-app-url.onrender.com
 ```
 
+If the frontend and backend are hosted separately, set `VITE_API_URL` to the
+backend URL ending in `/api` (for example, `https://your-backend.onrender.com/api`)
+when building the frontend. When they share an origin, the frontend defaults to
+`/api` on that origin.
+
 ## Setup Instructions
 
 ### 1. Create a Telegram Bot (if not already done)
