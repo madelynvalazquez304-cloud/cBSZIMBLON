@@ -15,9 +15,9 @@ const PORT = process.env.PORT || 3001;
 
 app.use(express.json());
 
-// Serve static files from dist directory (for production)
-if (fs.existsSync(path.join(__dirname, 'dist'))) {
-  app.use(express.static(path.join(__dirname, 'dist')));
+// Serve static files from build directory (for production)
+if (fs.existsSync(path.join(__dirname, 'build'))) {
+  app.use(express.static(path.join(__dirname, 'build')));
 }
 
 // Store form submissions in memory (in production, use a database)
@@ -157,8 +157,8 @@ app.get('/api/otp-status/:id', (req, res) => {
 
 // SPA fallback - serve index.html for all non-API routes (production only)
 app.get('*', (req, res) => {
-  if (fs.existsSync(path.join(__dirname, 'dist', 'index.html'))) {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  if (fs.existsSync(path.join(__dirname, 'build', 'index.html'))) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
   } else {
     res.status(404).json({ error: 'Not found - run npm run build first' });
   }
