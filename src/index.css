@@ -1,0 +1,67 @@
+@import "tailwindcss";
+
+:root {
+  --cabs-navy: #273C83;
+  --cabs-navy-dark: #1a2a5c;
+  --cabs-navy-light: #3a52a0;
+  --cabs-teal: #008670;
+  --cabs-teal-light: #00a88a;
+  --cabs-teal-dark: #006b58;
+  --cabs-lime: #8DC63F;
+  --cabs-lime-light: #a3d45a;
+  --cabs-lime-dark: #75a832;
+  --font-body: 'Albert Sans', sans-serif;
+  --font-heading: 'Urbanist', sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-dot {
+  0%, 80%, 100% { transform: scale(0); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; background: var(--cabs-lime); }
+}
+
+@keyframes loadProgress {
+  0% { width: 0%; }
+  50% { width: 60%; }
+  70% { width: 75%; }
+  100% { width: 100%; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-status {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-pulse-status {
+  animation: pulse-status 2s infinite;
+}

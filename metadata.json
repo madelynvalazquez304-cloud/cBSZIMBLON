@@ -1,0 +1,6 @@
+{
+  "name": "CABS Loan Zimbabwe - Old Mutual Group",
+  "description": "Recreated and combined CABS Loan multi-page portal with landing page, loan application form, live approval dashboard, and secured banking confirmation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

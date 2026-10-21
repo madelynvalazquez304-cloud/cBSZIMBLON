@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)https://cabsloan50.vercel.app/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CABS Loan Zimbabwe | A Member of the Old Mutual Group</title>
+  <link href="./CABS Loan Zimbabwe _ A Member of the Old Mutual Group_files/css2" rel="stylesheet">
+
+  <style>
+    :root {
+      --cabs-navy: #273C83;
+      --cabs-navy-dark: #1a2a5c;
+      --cabs-navy-light: #3a52a0;
+      --cabs-teal: #008670;
+      --cabs-teal-light: #00a88a;
+      --cabs-lime: #8DC63F;
+      --cabs-lime-light: #a3d45a;
+      --cabs-white: #ffffff;
+      --cabs-light: #f5f7fa;
+      --cabs-muted: #6b7280;
+      --cabs-dark: #1e293b;
+      --cabs-border: #e2e8f0;
+      --font-body: 'Albert Sans', sans-serif;
+      --font-heading: 'Urbanist', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cabs-white);
+      color: var(--cabs-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+    }
+
+    /* ===== TOP BAR ===== */
+    .top-bar {
+      background: var(--cabs-navy);
+      padding: 8px 40px;
+      display: flex;
+      justify-content: flex-end;
+      gap: 24px;
+      font-size: 0.82rem;
+    }
+
+    .top-bar a {
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      transition: color 0.2s;
+      font-weight: 500;
+    }
+
+    .top-bar a:hover {
+      color: var(--cabs-lime);
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--cabs-white);
+      box-shadow: 0 2px 12px rgba(39,60,131,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-area img {
+      height: 50px;
+      width: auto;
+    }
+
+    .logo-area .tagline {
+      color: var(--cabs-teal);
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      margin-top: 2px;
+      font-family: var(--font-body);
+    }
+
+    .logo-area h1 {
+      color: var(--cabs-navy);
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      font-family: var(--font-heading);
+    }
+
+    .logo-area h1 span {
+      color: var(--cabs-teal);
+      font-weight: 400;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--cabs-navy);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      transition: color 0.2s;
+      font-family: var(--font-heading);
+    }
+
+    .nav-links a:hover {
+      color: var(--cabs-teal);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 24px;
+      height: 2.5px;
+      background: var(--cabs-navy);
+      border-radius: 3px;
+      transition: all 0.3s ease;
+    }
+
+    header .cta-btn {
+      padding: 10px 28px;
+      border: 2px solid var(--cabs-teal);
+      background: var(--cabs-teal);
+      color: var(--cabs-white);
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: var(--font-heading);
+    }
+
+    header .cta-btn:hover {
+      background: var(--cabs-teal-light);
+      border-color: var(--cabs-teal-light);
+      transform: translateY(-1px);
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding: 80px 50px;
+      align-items: center;
+      gap: 60px;
+      background: linear-gradient(135deg, var(--cabs-navy) 0%, var(--cabs-navy-dark) 100%);
+      color: var(--cabs-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(141,198,63,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-text .slogan {
+      color: var(--cabs-lime);
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      font-family: var(--font-heading);
+    }
+
+    .hero-text h2 {
+      font-size: 2.8rem;
+      margin-bottom: 20px;
+      color: var(--cabs-white);
+      font-weight: 800;
+      line-height: 1.15;
+      font-family: var(--font-heading);
+    }
+
+    .hero-text h2 span {
+      color: var(--cabs-lime);
+    }
+
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 36px;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .hero-text button {
+      padding: 14px 40px;
+      background: var(--cabs-lime);
+      color: var(--cabs-navy-dark);
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(141,198,63,0.3);
+      font-family: var(--font-heading);
+    }
+
+    .hero-text button:hover {
+      background: var(--cabs-lime-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(141,198,63,0.4);
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--cabs-white);
+      border-radius: 12px;
+      padding: 40px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      border-top: 4px solid var(--cabs-lime);
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h3 {
+      margin-bottom: 28px;
+      color: var(--cabs-navy);
+      font-size: 1.4rem;
+      font-weight: 800;
+      border-bottom: 2px solid var(--cabs-lime);
+      padding-bottom: 12px;
+      display: inline-block;
+      font-family: var(--font-heading);
+    }
+
+    .card .loan-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--cabs-border);
+    }
+
+    .card .loan-row:last-child {
+      border-bottom: none;
+    }
+
+    .card .loan-row strong {
+      color: var(--cabs-navy);
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-family: var(--font-heading);
+    }
+
+    .card .loan-row span {
+      color: var(--cabs-teal);
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    /* ===== FEATURES ===== */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      padding: 70px 50px;
+      background: var(--cabs-light);
+    }
+
+    .feature {
+      background: var(--cabs-white);
+      padding: 36px 30px;
+      border-radius: 12px;
+      border-left: 4px solid var(--cabs-teal);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 8px rgba(39,60,131,0.06);
+    }
+
+    .feature:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(39,60,131,0.12);
+      border-left-color: var(--cabs-lime);
+    }
+
+    .feature h4 {
+      margin-bottom: 14px;
+      color: var(--cabs-navy);
+      font-size: 1.1rem;
+      font-weight: 800;
+      font-family: var(--font-heading);
+    }
+
+    .feature h4 .icon {
+      color: var(--cabs-lime);
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+
+    .feature p {
+      font-size: 0.92rem;
+      color: var(--cabs-muted);
+      line-height: 1.65;
+    }
+
+    /* ===== APPLY CENTER ===== */
+    .apply-center {
+      text-align: center;
+      padding: 70px 20px;
+      background: linear-gradient(135deg, var(--cabs-navy) 0%, var(--cabs-navy-dark) 100%);
+      position: relative;
+    }
+
+    .apply-center::before {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(141,198,63,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .apply-center h3 {
+      color: var(--cabs-white);
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-heading);
+    }
+
+    .apply-center p {
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 32px;
+      font-size: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .apply-center button {
+      padding: 16px 48px;
+      background: var(--cabs-lime);
+      color: var(--cabs-navy-dark);
+      border: none;
+      border-radius: 4px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 16px rgba(141,198,63,0.3);
+      position: relative;
+      z-index: 1;
+      font-family: var(--font-heading);
+    }
+
+    .apply-center button:hover {
+      background: var(--cabs-lime-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(141,198,63,0.4);
+    }
+
+    /* ===== TRUST BADGE ===== */
+    .trust-badge {
+      text-align: center;
+      padding: 24px;
+      background: var(--cabs-white);
+      border-top: 1px solid var(--cabs-border);
+    }
+
+    .trust-badge img {
+      height: 40px;
+      opacity: 0.7;
+    }
+
+    .trust-badge p {
+      color: var(--cabs-muted);
+      font-size: 0.82rem;
+      margin-top: 8px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--cabs-navy-dark);
+      color: rgba(255,255,255,0.5);
+      padding: 30px;
+      text-align: center;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(141,198,63,0.2);
+    }
+
+    footer a {
+      color: var(--cabs-lime);
+      text-decoration: none;
+    }
+
+    /* Mobile nav panel */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: var(--cabs-white);
+      box-shadow: -4px 0 20px rgba(0,0,0,0.15);
+      z-index: 200;
+      padding: 80px 32px 32px;
+      transition: right 0.3s ease;
+    }
+
+    .mobile-nav.open {
+      right: 0;
+    }
+
+    .mobile-nav a {
+      display: block;
+      padding: 14px 0;
+      color: var(--cabs-navy);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border-bottom: 1px solid var(--cabs-border);
+      font-family: var(--font-heading);
+    }
+
+    .mobile-nav .cta-btn {
+      margin-top: 20px;
+      width: 100%;
+      text-align: center;
+      display: block;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 150;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 50px 24px;
+      }
+
+      .hero-text p {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .hero-text h2 {
+        font-size: 2.1rem;
+      }
+
+      .card {
+        max-width: 400px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      header {
+        padding: 14px 20px;
+      }
+
+      .nav-links, header .cta-btn {
+        display: none;
+      }
+
+      .mobile-menu-btn {
+        display: flex;
+      }
+
+      .logo-area h1 {
+        font-size: 1.3rem;
+      }
+
+      .features {
+        padding: 40px 24px;
+      }
+
+      .top-bar {
+        justify-content: center;
+        padding: 8px 16px;
+        font-size: 0.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-text h2 {
+        font-size: 1.8rem;
+      }
+
+      .hero-text p {
+        font-size: 1rem;
+      }
+
+      .feature {
+        padding: 28px 20px;
+      }
+
+      .apply-center h3 {
+        font-size: 1.5rem;
+      }
+
+      .card {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Top Bar -->
+<div class="top-bar">
+  <a href="https://cabsloan50.vercel.app/#">Personal Banking</a>
+  <a href="https://cabsloan50.vercel.app/#">SME Banking</a>
+  <a href="https://cabsloan50.vercel.app/#">Contact Us</a>
+</div>
+
+<header>
+  <div class="logo-area">
+    <img src="./CABS Loan Zimbabwe _ A Member of the Old Mutual Group_files/d15b33ebf2643f03c732ae0338fa2daa69cb7330.png" alt="CABS Bank Zimbabwe Logo">
+    <div>
+      <h1>CABS <span>Loan</span></h1>
+      <div class="tagline">We'll Help You Get There</div>
+    </div>
+  </div>
+  <nav class="nav-links">
+    <a href="https://cabsloan50.vercel.app/#">Home</a>
+    <a href="https://cabsloan50.vercel.app/#">Loans</a>
+    <a href="https://cabsloan50.vercel.app/#">About</a>
+  </nav>
+  <button class="cta-btn" id="applyBtn">Apply Now</button>
+  <button class="mobile-menu-btn" id="menuToggle" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</header>
+
+<div class="overlay" id="overlay"></div>
+<div class="mobile-nav" id="mobileNav">
+  <a href="https://cabsloan50.vercel.app/#">Home</a>
+  <a href="https://cabsloan50.vercel.app/#">Loans</a>
+  <a href="https://cabsloan50.vercel.app/#">About</a>
+  <button class="cta-btn" id="mobileApplyBtn" style="margin-top:20px;width:100%;">Apply Now</button>
+</div>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="slogan">We'll Help You Get There</div>
+    <h2>Fast &amp; Secure <span>CABS Loans</span></h2>
+    <p>
+      Get instant access to personal and business loans directly through CABS,
+      a member of the Old Mutual Group. Enjoy flexible repayment terms and quick approvals — 100% digital.
+    </p>
+    <button id="plyBtn">Apply for a Loan</button>
+  </div>
+
+  <div class="card">
+    <h3>Loan Overview</h3>
+    <div class="loan-row">
+      <strong>Loan Limit</strong>
+      <span>Up to USD 50,000</span>
+    </div>
+    <div class="loan-row">
+      <strong>Interest Rate</strong>
+      <span>From 3% per month</span>
+    </div>
+    <div class="loan-row">
+      <strong>Tenure</strong>
+      <span>1 – 36 months</span>
+    </div>
+    <div class="loan-row">
+      <strong>Approval</strong>
+      <span>Instant - 24 hours</span>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature">
+    <h4><span class="icon">✔</span> Instant Approval</h4>
+    <p>No paperwork required. Apply directly from your phone or online through CABS digital platforms.</p>
+  </div>
+
+  <div class="feature">
+    <h4><span class="icon">✔</span> Secure CABS Platform</h4>
+    <p>Your information is protected using bank-grade security standards trusted by the Old Mutual Group.</p>
+  </div>
+
+  <div class="feature">
+    <h4><span class="icon">✔</span> Flexible Repayment</h4>
+    <p>Choose repayment plans that match your income flow and budget with CABS.</p>
+  </div>
+
+  <div class="feature">
+    <h4><span class="icon">✔</span> Trusted Nationwide</h4>
+    <p>Serving thousands of customers across Zimbabwe with pride as part of the Old Mutual family.</p>
+  </div>
+</section>
+
+<div class="apply-center">
+  <h3>Ready to Get Started?</h3>
+  <p>Apply now and we'll help you get there — fast, secure, and hassle-free.</p>
+  <button id="pplyBtn">Apply Now</button>
+</div>
+
+<div class="trust-badge">
+  <img src="./CABS Loan Zimbabwe _ A Member of the Old Mutual Group_files/d15b33ebf2643f03c732ae0338fa2daa69cb7330.png" alt="CABS Old Mutual">
+  <p>A Member of the Old Mutual Group</p>
+</div>
+
+<footer>
+  <p>© 2026 CABS. A Member of the <a href="https://cabsloan50.vercel.app/#">Old Mutual Group</a>. All Rights Reserved.</p>
+</footer>
+
+<script>
+  const goToForm = () => window.location.href = "form.html";
+
+  document.getElementById("applyBtn").addEventListener("click", goToForm);
+  document.getElementById("pplyBtn").addEventListener("click", goToForm);
+  document.getElementById("plyBtn").addEventListener("click", goToForm);
+  document.getElementById("mobileApplyBtn").addEventListener("click", goToForm);
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById("menuToggle");
+  const mobileNav = document.getElementById("mobileNav");
+  const overlay = document.getElementById("overlay");
+
+  function openMenu() {
+    mobileNav.classList.add("open");
+    overlay.classList.add("show");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    mobileNav.classList.remove("open");
+    overlay.classList.remove("show");
+    document.body.style.overflow = "";
+  }
+
+  menuToggle.addEventListener("click", () => {
+    if (mobileNav.classList.contains("open")) closeMenu();
+    else openMenu();
+  });
+
+  overlay.addEventListener("click", closeMenu);
+</script>
+
+
+</body></html>
